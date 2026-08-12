@@ -1,0 +1,1210 @@
+[
+  {
+    "id": "Achilles",
+    "name": "Achilles",
+    "portrait": "https://static.smite2.live/smite2/GODS/Achilles/Default/t_GodPortrait_Achilles.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Prowess"
+    ],
+    "released": true,
+    "portrait_local": "images/Achilles.webp"
+  },
+  {
+    "id": "Agni",
+    "name": "Agni",
+    "portrait": "https://static.smite2.live/smite2/GODS/Agni/Default/t_GodPortrait_Agni.webp",
+    "pantheon": "hindu",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Combustion"
+    ],
+    "released": true,
+    "portrait_local": "images/Agni.webp"
+  },
+  {
+    "id": "AhPuch",
+    "name": "Ah Puch",
+    "portrait": "https://static.smite2.live/smite2/GODS/AhPuch/Default/t_GodPortrait_AhPuch.webp",
+    "pantheon": "maya",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/AhPuch.webp"
+  },
+  {
+    "id": "Aladdin",
+    "name": "Aladdin",
+    "portrait": "https://static.smite2.live/smite2/GODS/Aladdin/Default/t_GodPortrait_Aladdin.webp",
+    "pantheon": "tales",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Aladdin.webp"
+  },
+  {
+    "id": "Amaterasu",
+    "name": "Amaterasu",
+    "portrait": "https://static.smite2.live/smite2/GODS/Amaterasu/Default/t_GodPortrait_Amaterasu.webp",
+    "pantheon": "japanese",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect Of Valor"
+    ],
+    "released": true,
+    "portrait_local": "images/Amaterasu.webp"
+  },
+  {
+    "id": "Anhur",
+    "name": "Anhur",
+    "portrait": "https://static.smite2.live/smite2/GODS/Anhur/Default/t_GodPortrait_Anhur.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Pride"
+    ],
+    "released": true,
+    "portrait_local": "images/Anhur.webp"
+  },
+  {
+    "id": "Anubis",
+    "name": "Anubis",
+    "portrait": "https://static.smite2.live/smite2/GODS/Anubis/Default/t_GodPortrait_Anubis.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Anubis.webp"
+  },
+  {
+    "id": "Aphrodite",
+    "name": "Aphrodite",
+    "portrait": "https://static.smite2.live/smite2/GODS/Aphrodite/Default/t_GodPortrait_Aphrodite.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Aphrodite.webp"
+  },
+  {
+    "id": "Apollo",
+    "name": "Apollo",
+    "portrait": "https://static.smite2.live/smite2/GODS/Apollo/Default/t_GodPortrait_Apollo.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Harmony"
+    ],
+    "released": true,
+    "portrait_local": "images/Apollo.webp"
+  },
+  {
+    "id": "Ares",
+    "name": "Ares",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ares/Default/t_GodPortrait_Ares.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Reverberation"
+    ],
+    "released": true,
+    "portrait_local": "images/Ares.webp"
+  },
+  {
+    "id": "Artemis",
+    "name": "Artemis",
+    "portrait": "https://static.smite2.live/smite2/GODS/Artemis/Default/t_GodPortrait_Artemis.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of the Wild"
+    ],
+    "released": true,
+    "portrait_local": "images/Artemis.webp"
+  },
+  {
+    "id": "Artio",
+    "name": "Artio",
+    "portrait": "https://static.smite2.live/smite2/GODS/Artio/Default/t_GodPortrait_Artio.webp",
+    "pantheon": "celtic",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of the Denmother"
+    ],
+    "released": true,
+    "portrait_local": "images/Artio.webp"
+  },
+  {
+    "id": "Athena",
+    "name": "Athena",
+    "portrait": "https://static.smite2.live/smite2/GODS/Athena/Default/t_GodPortrait_Athena.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of War"
+    ],
+    "released": true,
+    "portrait_local": "images/Athena.webp"
+  },
+  {
+    "id": "Atlas",
+    "name": "Atlas",
+    "portrait": "https://static.smite2.live/smite2/GODS/Atlas/Default/t_GodPortrait_Atlas.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of the Unburdened"
+    ],
+    "released": true,
+    "portrait_local": "images/Atlas.webp"
+  },
+  {
+    "id": "Awilix",
+    "name": "Awilix",
+    "portrait": "https://static.smite2.live/smite2/GODS/Awilix/Default/t_GodPortrait_Awilix.webp",
+    "pantheon": "maya",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      " "
+    ],
+    "released": true,
+    "portrait_local": "images/Awilix.webp"
+  },
+  {
+    "id": "Bacchus",
+    "name": "Bacchus",
+    "portrait": "https://static.smite2.live/smite2/GODS/Bacchus/Default/t_GodPortrait_Bacchus.webp",
+    "pantheon": "roman",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Revelry"
+    ],
+    "released": true,
+    "portrait_local": "images/Bacchus.webp"
+  },
+  {
+    "id": "BaronSamedi",
+    "name": "Baron Samedi",
+    "portrait": "https://static.smite2.live/smite2/GODS/BaronSamedi/Default/t_GodPortrait_BaronSamedi.webp",
+    "pantheon": "voodoo",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Hysteria"
+    ],
+    "released": true,
+    "portrait_local": "images/BaronSamedi.webp"
+  },
+  {
+    "id": "Bastet",
+    "name": "Bastet",
+    "portrait": "https://static.smite2.live/smite2/GODS/Bastet/Default/t_GodPortrait_Bastet.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of the Watchful Pride"
+    ],
+    "released": true,
+    "portrait_local": "images/Bastet.webp"
+  },
+  {
+    "id": "Bellona",
+    "name": "Bellona",
+    "portrait": "https://static.smite2.live/smite2/GODS/Bellona/Default/t_GodPortrait_Bellona.webp",
+    "pantheon": "roman",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Vindication"
+    ],
+    "released": true,
+    "portrait_local": "images/Bellona.webp"
+  },
+  {
+    "id": "Cabrakan",
+    "name": "Cabrakan",
+    "portrait": "https://static.smite2.live/smite2/GODS/Cabrakan/Default/t_GodPortrait_Cabrakan.webp",
+    "pantheon": "maya",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of the Rotund Jotunn"
+    ],
+    "released": true,
+    "portrait_local": "images/Cabrakan.webp"
+  },
+  {
+    "id": "Cerberus",
+    "name": "Cerberus",
+    "portrait": "https://static.smite2.live/smite2/GODS/Cerberus/Default/t_GodPortrait_Cerberus.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Souls"
+    ],
+    "released": true,
+    "portrait_local": "images/Cerberus.webp"
+  },
+  {
+    "id": "Cernunnos",
+    "name": "Cernunnos",
+    "portrait": "https://static.smite2.live/smite2/GODS/Cernunnos/Default/t_GodPortrait_Cernunnos.webp",
+    "pantheon": "celtic",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Strife"
+    ],
+    "released": true,
+    "portrait_local": "images/Cernunnos.webp"
+  },
+  {
+    "id": "Chaac",
+    "name": "Chaac",
+    "portrait": "https://static.smite2.live/smite2/GODS/Chaac/Default/t_GodPortrait_Chaac.webp",
+    "pantheon": "maya",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Fulmination"
+    ],
+    "released": true,
+    "portrait_local": "images/Chaac.webp"
+  },
+  {
+    "id": "Charon",
+    "name": "Charon",
+    "portrait": "https://static.smite2.live/smite2/GODS/Charon/Default/t_GodPortrait_Charon.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Charon.webp"
+  },
+  {
+    "id": "Chiron",
+    "name": "Chiron",
+    "portrait": "https://static.smite2.live/smite2/GODS/Chiron/Default/t_GodPortrait_Chiron.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of the Heroic Tutor"
+    ],
+    "released": true,
+    "portrait_local": "images/Chiron.webp"
+  },
+  {
+    "id": "Chronos",
+    "name": "Chronos",
+    "portrait": "https://static.smite2.live/smite2/GODS/Chronos/Default/t_GodPortrait_Chronos.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Relativity"
+    ],
+    "released": true,
+    "portrait_local": "images/Chronos.webp"
+  },
+  {
+    "id": "CuChulainn",
+    "name": "Cu Chulainn",
+    "portrait": "https://static.smite2.live/smite2/GODS/CuChulainn/Default/t_GodPortrait_CuChulainn.webp",
+    "pantheon": "celtic",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of the Warped"
+    ],
+    "released": true,
+    "portrait_local": "images/CuChulainn.webp"
+  },
+  {
+    "id": "Cupid",
+    "name": "Cupid",
+    "portrait": "https://static.smite2.live/smite2/GODS/Cupid/Default/t_GodPortrait_Cupid.webp",
+    "pantheon": "roman",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Love"
+    ],
+    "released": true,
+    "portrait_local": "images/Cupid.webp"
+  },
+  {
+    "id": "DaJi",
+    "name": "Da Ji",
+    "portrait": "https://static.smite2.live/smite2/GODS/DaJi/Default/t_GodPortrait_DaJi.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Ferocity"
+    ],
+    "released": true,
+    "portrait_local": "images/DaJi.webp"
+  },
+  {
+    "id": "Danzaburou",
+    "name": "Danzaburou",
+    "portrait": "https://static.smite2.live/smite2/GODS/Danzaburou/Default/t_GodPortrait_Danzaburou.webp",
+    "pantheon": "japanese",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Fellowship"
+    ],
+    "released": true,
+    "portrait_local": "images/Danzaburou.webp"
+  },
+  {
+    "id": "Discordia",
+    "name": "Discordia",
+    "portrait": "https://static.smite2.live/smite2/GODS/Discordia/Default/t_GodPortrait_Discordia.webp",
+    "pantheon": "roman",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of the Gilded Victor"
+    ],
+    "released": true,
+    "portrait_local": "images/Discordia.webp"
+  },
+  {
+    "id": "Eset",
+    "name": "Eset",
+    "portrait": "https://static.smite2.live/smite2/GODS/Eset/Default/t_GodPortrait_Eset.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of the Lifewarden"
+    ],
+    "released": true,
+    "portrait_local": "images/Eset.webp"
+  },
+  {
+    "id": "Fenrir",
+    "name": "Fenrir",
+    "portrait": "https://static.smite2.live/smite2/GODS/Fenrir/Default/t_GodPortrait_Fenrir.webp",
+    "pantheon": "norse",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Loyalty"
+    ],
+    "released": true,
+    "portrait_local": "images/Fenrir.webp"
+  },
+  {
+    "id": "Ganesha",
+    "name": "Ganesha",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ganesha/Default/t_GodPortrait_Ganesha.webp",
+    "pantheon": "hindu",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of the Triumphant"
+    ],
+    "released": true,
+    "portrait_local": "images/Ganesha.webp"
+  },
+  {
+    "id": "Geb",
+    "name": "Geb",
+    "portrait": "https://static.smite2.live/smite2/GODS/Geb/Default/t_GodPortrait_Geb.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Calamity"
+    ],
+    "released": true,
+    "portrait_local": "images/Geb.webp"
+  },
+  {
+    "id": "Gilgamesh",
+    "name": "Gilgamesh",
+    "portrait": "https://static.smite2.live/smite2/GODS/Gilgamesh/Default/t_GodPortrait_Gilgamesh.webp",
+    "pantheon": "babylonian",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Shamash"
+    ],
+    "released": true,
+    "portrait_local": "images/Gilgamesh.webp"
+  },
+  {
+    "id": "GuanYu",
+    "name": "Guan Yu",
+    "portrait": "https://static.smite2.live/smite2/GODS/GuanYu/Default/t_GodPortrait_GuanYu.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of the General"
+    ],
+    "released": true,
+    "portrait_local": "images/GuanYu.webp"
+  },
+  {
+    "id": "Hades",
+    "name": "Hades",
+    "portrait": "https://static.smite2.live/smite2/GODS/Hades/Default/t_GodPortrait_Hades.webp",
+    "pantheon": "greek",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Hades.webp"
+  },
+  {
+    "id": "Hecate",
+    "name": "Hecate",
+    "portrait": "https://static.smite2.live/smite2/GODS/Hecate/Default/t_GodPortrait_Hecate.webp",
+    "pantheon": "greek",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Ruin"
+    ],
+    "released": true,
+    "portrait_local": "images/Hecate.webp"
+  },
+  {
+    "id": "Hercules",
+    "name": "Hercules",
+    "portrait": "https://static.smite2.live/smite2/GODS/Hercules/Default/t_GodPortrait_Hercules.webp",
+    "pantheon": "roman",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Preservation"
+    ],
+    "released": true,
+    "portrait_local": "images/Hercules.webp"
+  },
+  {
+    "id": "Horus",
+    "name": "Horus",
+    "portrait": "https://static.smite2.live/smite2/GODS/Horus/Default/t_GodPortrait_Horus.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of the Falcon"
+    ],
+    "released": true,
+    "portrait_local": "images/Horus.webp"
+  },
+  {
+    "id": "HouYi",
+    "name": "Hou Yi",
+    "portrait": "https://static.smite2.live/smite2/GODS/HouYi/Default/t_GodPortrait_HouYi.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of the Mark"
+    ],
+    "released": true,
+    "portrait_local": "images/HouYi.webp"
+  },
+  {
+    "id": "Mulan",
+    "name": "Hua Mulan",
+    "portrait": "https://static.smite2.live/smite2/GODS/Mulan/Default/t_GodPortrait_Mulan.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Mulan.webp"
+  },
+  {
+    "id": "HunBatz",
+    "name": "Hun Batz",
+    "portrait": "https://static.smite2.live/smite2/GODS/HunBatz/Default/t_GodPortrait_HunBatz.webp",
+    "pantheon": "maya",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Disruption"
+    ],
+    "released": true,
+    "portrait_local": "images/HunBatz.webp"
+  },
+  {
+    "id": "Ishtar",
+    "name": "Ishtar",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ishtar/Default/t_GodPortrait_Ishtar.webp",
+    "pantheon": "babylonian",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Ishtar.webp"
+  },
+  {
+    "id": "IxChel",
+    "name": "Ix Chel",
+    "portrait": "https://static.smite2.live/smite2/GODS/IxChel/Default/t_GodPortrait_IxChel.webp",
+    "pantheon": "maya",
+    "roles": [],
+    "aspects": [
+      "Aspect of the Mother&#x27;s Light"
+    ],
+    "released": true,
+    "portrait_local": "images/IxChel.webp"
+  },
+  {
+    "id": "Izanami",
+    "name": "Izanami",
+    "portrait": "https://static.smite2.live/smite2/GODS/Izanami/Default/t_GodPortrait_Izanami.webp",
+    "pantheon": "japanese",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Izanami.webp"
+  },
+  {
+    "id": "Janus",
+    "name": "Janus",
+    "portrait": "https://static.smite2.live/smite2/GODS/Janus/Default/t_GodPortrait_Janus.webp",
+    "pantheon": "roman",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Janus.webp"
+  },
+  {
+    "id": "JingWei",
+    "name": "Jing Wei",
+    "portrait": "https://static.smite2.live/smite2/GODS/JingWei/Default/t_GodPortrait_JingWei.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/JingWei.webp"
+  },
+  {
+    "id": "Jormungandr",
+    "name": "Jormungandr",
+    "portrait": "https://static.smite2.live/smite2/GODS/Jormungandr/Default/t_GodPortrait_Jormungandr.webp",
+    "pantheon": "norse",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of the Unyielding"
+    ],
+    "released": true,
+    "portrait_local": "images/Jormungandr.webp"
+  },
+  {
+    "id": "Kali",
+    "name": "Kali",
+    "portrait": "https://static.smite2.live/smite2/GODS/Kali/Default/t_GodPortrait_Kali.webp",
+    "pantheon": "hindu",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Unbound Destruction"
+    ],
+    "released": true,
+    "portrait_local": "images/Kali.webp"
+  },
+  {
+    "id": "Khepri",
+    "name": "Khepri",
+    "portrait": "https://static.smite2.live/smite2/GODS/Khepri/Default/t_GodPortrait_Khepri.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Laceration"
+    ],
+    "released": true,
+    "portrait_local": "images/Khepri.webp"
+  },
+  {
+    "id": "Kukulkan",
+    "name": "Kukulkan",
+    "portrait": "https://static.smite2.live/smite2/GODS/Kukulkan/Default/t_GodPortrait_Kukulkan.webp",
+    "pantheon": "maya",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of the Squall"
+    ],
+    "released": true,
+    "portrait_local": "images/Kukulkan.webp"
+  },
+  {
+    "id": "Loki",
+    "name": "Loki",
+    "portrait": "https://static.smite2.live/smite2/GODS/Loki/Default/t_GodPortrait_Loki.webp",
+    "pantheon": "norse",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Agony"
+    ],
+    "released": true,
+    "portrait_local": "images/Loki.webp"
+  },
+  {
+    "id": "Medusa",
+    "name": "Medusa",
+    "portrait": "https://static.smite2.live/smite2/GODS/Medusa/Default/t_GodPortrait_Medusa.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Medusa.webp"
+  },
+  {
+    "id": "Mercury",
+    "name": "Mercury",
+    "portrait": "https://static.smite2.live/smite2/GODS/Mercury/Default/t_GodPortrait_Mercury.webp",
+    "pantheon": "roman",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Mercury.webp"
+  },
+  {
+    "id": "Merlin",
+    "name": "Merlin",
+    "portrait": "https://static.smite2.live/smite2/GODS/Merlin/Default/t_GodPortrait_Merlin.webp",
+    "pantheon": "arthurian",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Pandemonium"
+    ],
+    "released": true,
+    "portrait_local": "images/Merlin.webp"
+  },
+  {
+    "id": "Mordred",
+    "name": "Mordred",
+    "portrait": "https://static.smite2.live/smite2/GODS/Mordred/Default/t_GodPortrait_Mordred.webp",
+    "pantheon": "arthurian",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Rage"
+    ],
+    "released": true,
+    "portrait_local": "images/Mordred.webp"
+  },
+  {
+    "id": "MorganLeFay",
+    "name": "Morgan Le Fay",
+    "portrait": "https://static.smite2.live/smite2/GODS/MorganLeFay/Default/t_GodPortrait_MorganLeFay.webp",
+    "pantheon": "arthurian",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of the Cursed Crown"
+    ],
+    "released": true,
+    "portrait_local": "images/MorganLeFay.webp"
+  },
+  {
+    "id": "NeZha",
+    "name": "Ne Zha",
+    "portrait": "https://static.smite2.live/smite2/GODS/NeZha/Default/t_GodPortrait_NeZha.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Righteous Flame"
+    ],
+    "released": true,
+    "portrait_local": "images/NeZha.webp"
+  },
+  {
+    "id": "Neith",
+    "name": "Neith",
+    "portrait": "https://static.smite2.live/smite2/GODS/Neith/Default/t_GodPortrait_Neith.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Wind"
+    ],
+    "released": true,
+    "portrait_local": "images/Neith.webp"
+  },
+  {
+    "id": "Nemesis",
+    "name": "Nemesis",
+    "portrait": "https://static.smite2.live/smite2/GODS/Nemesis/Default/t_GodPortrait_Nemesis.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Justice"
+    ],
+    "released": true,
+    "portrait_local": "images/Nemesis.webp"
+  },
+  {
+    "id": "NuWa",
+    "name": "Nu Wa",
+    "portrait": "https://static.smite2.live/smite2/GODS/NuWa/Default/t_GodPortrait_NuWa.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Shining Mist"
+    ],
+    "released": true,
+    "portrait_local": "images/NuWa.webp"
+  },
+  {
+    "id": "Nut",
+    "name": "Nut",
+    "portrait": "https://static.smite2.live/smite2/GODS/Nut/Default/t_GodPortrait_Nut.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of the Cosmos"
+    ],
+    "released": true,
+    "portrait_local": "images/Nut.webp"
+  },
+  {
+    "id": "Odin",
+    "name": "Odin",
+    "portrait": "https://static.smite2.live/smite2/GODS/Odin/Default/t_GodPortrait_Odin.webp",
+    "pantheon": "norse",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Odin_01"
+    ],
+    "released": true,
+    "portrait_local": "images/Odin.webp"
+  },
+  {
+    "id": "Osiris",
+    "name": "Osiris",
+    "portrait": "https://static.smite2.live/smite2/GODS/Osiris/Default/t_GodPortrait_Osiris.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of the Fragmented"
+    ],
+    "released": true,
+    "portrait_local": "images/Osiris.webp"
+  },
+  {
+    "id": "Pele",
+    "name": "Pele",
+    "portrait": "https://static.smite2.live/smite2/GODS/Pele/Default/t_GodPortrait_Pele.webp",
+    "pantheon": "polynesian",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Obsidian"
+    ],
+    "released": true,
+    "portrait_local": "images/Pele.webp"
+  },
+  {
+    "id": "Poseidon",
+    "name": "Poseidon",
+    "portrait": "https://static.smite2.live/smite2/GODS/Poseidon/Default/t_GodPortrait_Poseidon.webp",
+    "pantheon": "greek",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of the Trident"
+    ],
+    "released": true,
+    "portrait_local": "images/Poseidon.webp"
+  },
+  {
+    "id": "Bari",
+    "name": "Princess Bari",
+    "portrait": "https://static.smite2.live/smite2/GODS/Bari/Default/t_GodPortrait_Bari.webp",
+    "pantheon": "korean",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Bari.webp"
+  },
+  {
+    "id": "Ra",
+    "name": "Ra",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ra/Default/t_GodPortrait_Ra.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Thermotherapy"
+    ],
+    "released": true,
+    "portrait_local": "images/Ra.webp"
+  },
+  {
+    "id": "Rama",
+    "name": "Rama",
+    "portrait": "https://static.smite2.live/smite2/GODS/Rama/Default/t_GodPortrait_Rama.webp",
+    "pantheon": "hindu",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Precision"
+    ],
+    "released": true,
+    "portrait_local": "images/Rama.webp"
+  },
+  {
+    "id": "Ratatoskr",
+    "name": "Ratatoskr",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ratatoskr/Default/t_GodPortrait_Ratatoskr.webp",
+    "pantheon": "norse",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of the Thickbark"
+    ],
+    "released": true,
+    "portrait_local": "images/Ratatoskr.webp"
+  },
+  {
+    "id": "Scylla",
+    "name": "Scylla",
+    "portrait": "https://static.smite2.live/smite2/GODS/Scylla/Default/t_GodPortrait_Scylla.webp",
+    "pantheon": "greek",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of the Devourer"
+    ],
+    "released": true,
+    "portrait_local": "images/Scylla.webp"
+  },
+  {
+    "id": "Sobek",
+    "name": "Sobek",
+    "portrait": "https://static.smite2.live/smite2/GODS/Sobek/Default/t_GodPortrait_Sobek.webp",
+    "pantheon": "egyptian",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Prey"
+    ],
+    "released": true,
+    "portrait_local": "images/Sobek.webp"
+  },
+  {
+    "id": "Sol",
+    "name": "Sol",
+    "portrait": "https://static.smite2.live/smite2/GODS/Sol/Default/t_GodPortrait_Sol.webp",
+    "pantheon": "norse",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of Conflagration"
+    ],
+    "released": true,
+    "portrait_local": "images/Sol.webp"
+  },
+  {
+    "id": "SunWukong",
+    "name": "Sun Wukong",
+    "portrait": "https://static.smite2.live/smite2/GODS/SunWukong/Default/t_GodPortrait_SunWukong.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "esolo"
+    ],
+    "aspects": [
+      "Aspect of Transformation"
+    ],
+    "released": true,
+    "portrait_local": "images/SunWukong.webp"
+  },
+  {
+    "id": "Susano",
+    "name": "Susano",
+    "portrait": "https://static.smite2.live/smite2/GODS/Susano/Default/t_GodPortrait_Susano.webp",
+    "pantheon": "japanese",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Susano.webp"
+  },
+  {
+    "id": "Sylvanus",
+    "name": "Sylvanus",
+    "portrait": "https://static.smite2.live/smite2/GODS/Sylvanus/Default/t_GodPortrait_Sylvanus.webp",
+    "pantheon": "roman",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Grover&#x27;s Wrath"
+    ],
+    "released": true,
+    "portrait_local": "images/Sylvanus.webp"
+  },
+  {
+    "id": "Thanatos",
+    "name": "Thanatos",
+    "portrait": "https://static.smite2.live/smite2/GODS/Thanatos/Default/t_GodPortrait_Thanatos.webp",
+    "pantheon": "greek",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Reaping"
+    ],
+    "released": true,
+    "portrait_local": "images/Thanatos.webp"
+  },
+  {
+    "id": "TheMorrigan",
+    "name": "The Morrigan",
+    "portrait": "https://static.smite2.live/smite2/GODS/TheMorrigan/Default/t_GodPortrait_TheMorrigan.webp",
+    "pantheon": "celtic",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Mischief"
+    ],
+    "released": true,
+    "portrait_local": "images/TheMorrigan.webp"
+  },
+  {
+    "id": "Thor",
+    "name": "Thor",
+    "portrait": "https://static.smite2.live/smite2/GODS/Thor/Default/t_GodPortrait_Thor.webp",
+    "pantheon": "norse",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Thunderstruck"
+    ],
+    "released": true,
+    "portrait_local": "images/Thor.webp"
+  },
+  {
+    "id": "Tsukuyomi",
+    "name": "Tsukuyomi",
+    "portrait": "https://static.smite2.live/smite2/GODS/Tsukuyomi/Default/t_GodPortrait_Tsukuyomi.webp",
+    "pantheon": "japanese",
+    "roles": [
+      "ejungle"
+    ],
+    "aspects": [
+      "Aspect of Mangetsu"
+    ],
+    "released": true,
+    "portrait_local": "images/Tsukuyomi.webp"
+  },
+  {
+    "id": "Ullr",
+    "name": "Ullr",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ullr/Default/t_GodPortrait_Ullr.webp",
+    "pantheon": "norse",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Ullr.webp"
+  },
+  {
+    "id": "Vulcan",
+    "name": "Vulcan",
+    "portrait": "https://static.smite2.live/smite2/GODS/Vulcan/Default/t_GodPortrait_Vulcan.webp",
+    "pantheon": "roman",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [
+      "Aspect of Fortification"
+    ],
+    "released": true,
+    "portrait_local": "images/Vulcan.webp"
+  },
+  {
+    "id": "Xbalanque",
+    "name": "Xbalanque",
+    "portrait": "https://static.smite2.live/smite2/GODS/Xbalanque/Default/t_GodPortrait_Xbalanque.webp",
+    "pantheon": "maya",
+    "roles": [
+      "ecarry"
+    ],
+    "aspects": [
+      "Aspect of the Nightstalker"
+    ],
+    "released": true,
+    "portrait_local": "images/Xbalanque.webp"
+  },
+  {
+    "id": "XingTian",
+    "name": "Xing Tian",
+    "portrait": "https://static.smite2.live/smite2/GODS/XingTian/Default/t_GodPortrait_XingTian.webp",
+    "pantheon": "chinese",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Relentless Spite"
+    ],
+    "released": true,
+    "portrait_local": "images/XingTian.webp"
+  },
+  {
+    "id": "Yemoja",
+    "name": "Yemoja",
+    "portrait": "https://static.smite2.live/smite2/GODS/Yemoja/Default/t_GodPortrait_Yemoja.webp",
+    "pantheon": "yoruba",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [
+      "Aspect of Downpour"
+    ],
+    "released": true,
+    "portrait_local": "images/Yemoja.webp"
+  },
+  {
+    "id": "Ymir",
+    "name": "Ymir",
+    "portrait": "https://static.smite2.live/smite2/GODS/Ymir/Default/t_GodPortrait_Ymir.webp",
+    "pantheon": "norse",
+    "roles": [
+      "esupport"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Ymir.webp"
+  },
+  {
+    "id": "Zeus",
+    "name": "Zeus",
+    "portrait": "https://static.smite2.live/smite2/GODS/Zeus/Default/t_GodPortrait_Zeus.webp",
+    "pantheon": "greek",
+    "roles": [
+      "emiddle"
+    ],
+    "aspects": [],
+    "released": true,
+    "portrait_local": "images/Zeus.webp"
+  }
+]

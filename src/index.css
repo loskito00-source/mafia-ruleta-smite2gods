@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #08080f;
+  --color-abyss: #0b0e1c;
+  --color-panel: #121426;
+  --color-gold: #f5c542;
+  --color-gold-deep: #c98f1b;
+  --color-crimson: #ff3b5c;
+  --color-ice: #5eead4;
+  --color-ember: #ff8c42;
+  --font-display: "Cinzel", serif;
+  --font-body: "Rajdhani", sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--color-void);
+  color: #e8e6f0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* ===== Fondo animado ===== */
+.bg-aurora {
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(76, 29, 149, 0.55), transparent 60%),
+    radial-gradient(1000px 600px at 110% 15%, rgba(6, 78, 59, 0.45), transparent 60%),
+    radial-gradient(900px 700px at 50% 120%, rgba(190, 24, 93, 0.28), transparent 55%),
+    linear-gradient(180deg, #08080f 0%, #0b0e1c 60%, #0a0a16 100%);
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.5;
+  animation: blob-drift 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes blob-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(60px, -40px, 0) scale(1.25); }
+}
+
+.bg-veil {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1.5px);
+  background-size: 34px 34px;
+}
+
+/* ===== Polvo dorado flotante ===== */
+@keyframes ember-rise {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  12% { opacity: 0.9; }
+  85% { opacity: 0.5; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 20px)) scale(0.4); opacity: 0; }
+}
+.ember {
+  position: absolute;
+  bottom: -12px;
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  border-radius: 9999px;
+  background: radial-gradient(circle, #ffe9a3, #f5c542 55%, transparent 75%);
+  box-shadow: 0 0 12px 2px rgba(245, 197, 66, 0.55);
+  animation: ember-rise var(--dur, 14s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  left: var(--x, 10%);
+  opacity: 0;
+}
+
+/* ===== Titulo ===== */
+.title-gradient {
+  background: linear-gradient(180deg, #fff6d8 0%, #f5c542 45%, #b0701a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.title-shimmer {
+  position: relative;
+}
+.title-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 65%
+  );
+  background-size: 250% 100%;
+  animation: shimmer 4.5s linear infinite;
+  mix-blend-mode: screen;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -50% 0; }
+}
+
+/* ===== Boton principal ===== */
+.btn-sortear {
+  position: relative;
+  background: linear-gradient(180deg, #ffe08a, #f5c542 40%, #c98f1b);
+  box-shadow:
+    0 0 0 1px rgba(245, 197, 66, 0.4),
+    0 10px 40px -8px rgba(245, 197, 66, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+.btn-sortear:hover {
+  box-shadow:
+    0 0 0 1px rgba(245, 197, 66, 0.7),
+    0 14px 55px -6px rgba(245, 197, 66, 0.85),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6);
+}
+.btn-sortear:active {
+  transform: scale(0.97);
+}
+.pulse-ring {
+  animation: pulse-ring 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(245, 197, 66, 0.55); }
+  70% { box-shadow: 0 0 0 22px rgba(245, 197, 66, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 197, 66, 0); }
+}
+
+/* ===== Tarjetas ===== */
+.card-glass {
+  background: linear-gradient(180deg, rgba(24, 27, 48, 0.85), rgba(14, 16, 32, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+}
+.card-hover:hover {
+  border-color: rgba(245, 197, 66, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(245, 197, 66, 0.25),
+    0 24px 60px -22px rgba(245, 197, 66, 0.35);
+}
+
+.god-ring {
+  box-shadow:
+    0 0 0 2px rgba(245, 197, 66, 0.55),
+    0 0 26px -4px rgba(245, 197, 66, 0.6);
+}
+.god-ring-blue {
+  box-shadow:
+    0 0 0 2px rgba(94, 234, 212, 0.55),
+    0 0 26px -4px rgba(94, 234, 212, 0.6);
+}
+.god-ring-red {
+  box-shadow:
+    0 0 0 2px rgba(255, 59, 92, 0.55),
+    0 0 26px -4px rgba(255, 59, 92, 0.6);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0b0e1c; }
+::-webkit-scrollbar-thumb { background: #2a2f4a; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4066; }
+
+/* ===== Movimiento reducido =====
+   CSS-driven keyframes/transitions (aurora blobs, embers, shimmer, pulse
+   ring, tailwind's `transition`/`animate-spin`) all live outside
+   framer-motion, so they need their own kill switch. Framer-motion itself
+   is handled separately via <MotionConfig reducedMotion="user"> in App. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,24 @@
+export interface God {
+  id: string
+  name: string
+  portrait: string
+  pantheon: string | null
+  roles: string[]
+  aspects: string[]
+  released: boolean
+  portrait_local: string | null
+}
+
+export interface Player {
+  id: string
+  name: string
+  tag: string
+}
+
+export interface Team {
+  name: string
+  accent: 'gold' | 'ice' | 'red'
+  players: { player: Player; god: God }[]
+}
+
+export type Phase = 'lobby' | 'spinning' | 'result'
