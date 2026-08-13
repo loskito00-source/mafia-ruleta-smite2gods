@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
 import type { Phase, Player, Team } from './types'
-import { GODS, PLAYERS, pickRandom, shuffled } from './lib'
+import { DEFAULT_PLAYERS, GODS, godImage, pickRandom, shuffled } from './lib'
 import { pressable, sectionEnter, sectionExit, springGentle } from './lib/motion'
 import { useSound } from './useSound'
+import { usePlayers } from './usePlayers'
 import Background from './components/Background'
 import ConfettiBurst from './components/ConfettiBurst'
 import PlayerAvatar from './components/PlayerAvatar'
@@ -36,41 +37,93 @@ function makeDraw(selected: Player[]): Draw {
 }
 
 export default function App() {
+  const { players, addPlayer, removePlayer } = usePlayers()
   const [phase, setPhase] = useState<Phase>('lobby')
   const [draw, setDraw] = useState<Draw | null>(null)
   const [selected, setSelected] = useState<Set<string>>(
-    () => new Set(PLAYERS.map((p) => p.id)),
+    () => new Set(players.map((p) => p.id)),
   )
   const [, setDoneCount] = useState(0)
   const [burstKey, setBurstKey] = useState(0)
   const [muted, setMuted] = useState(false)
+  const [newPlayerName, setNewPlayerName] = useState('')
   const { tick, spinStart, reveal } = useSound(!muted)
 
-  const togglePlayer = (id: string) => {
+  useEffect(() => {
+    const srcs = GODS.map((g) => godImage(g))
+    let i = 0
+    let timer = 0
+    const warm = () => {
+      const end = Math.min(i + 6, srcs.length)
+      for (; i < end; i++) {
+        const img = new Image()
+        img.decoding = 'async'
+        img.src = srcs[i]
+      }
+      if (i < srcs.length) timer = window.setTimeout(warm, 120)
+    }
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(warm, { timeout: 2500 })
+      return () => {
+        window.cancelIdleCallback(id)
+        clearTimeout(timer)
+      }
+    }
+    warm()
+    return () => clearTimeout(timer)
+  }, [])
+
+  const togglePlayer = useCallback((id: string) => {
     setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
       return next
     })
-  }
+  }, [])
 
-  const selectAll = () => setSelected(new Set(PLAYERS.map((p) => p.id)))
-  const clearAll = () => setSelected(new Set())
+  const selectAll = useCallback(
+    () => setSelected(new Set(players.map((p) => p.id))),
+    [players],
+  )
+  const clearAll = useCallback(() => setSelected(new Set()), [])
 
-  const selectedPlayers = PLAYERS.filter((p) => selected.has(p.id))
+  const handleAddPlayer = useCallback(() => {
+    const player = addPlayer(newPlayerName)
+    if (player) {
+      setSelected((prev) => new Set(prev).add(player.id))
+      setNewPlayerName('')
+    }
+  }, [addPlayer, newPlayerName])
+
+  const handleRemovePlayer = useCallback(
+    (id: string) => {
+      removePlayer(id)
+      setSelected((prev) => {
+        const next = new Set(prev)
+        next.delete(id)
+        return next
+      })
+    },
+    [removePlayer],
+  )
+
+  const selectedPlayers = useMemo(
+    () => players.filter((p) => selected.has(p.id)),
+    [players, selected],
+  )
   const canStart = selectedPlayers.length >= 2
 
-  const startDraw = () => {
+  const startDraw = useCallback(() => {
     if (!canStart) return
     const d = makeDraw(selectedPlayers)
     setDraw(d)
     setDoneCount(0)
     setPhase('spinning')
     spinStart()
-  }
+  }, [canStart, selectedPlayers, spinStart])
 
-  const onSlotDone = () => {
+  const onSlotDone = useCallback(() => {
     setDoneCount((n) => {
       const next = n + 1
       if (next === selectedPlayers.length) {
@@ -82,9 +135,9 @@ export default function App() {
       }
       return next
     })
-  }
+  }, [selectedPlayers.length, reveal])
 
-  const rerollGod = (teamKey: 'teamA' | 'teamB', index: number) => {
+  const rerollGod = useCallback((teamKey: 'teamA' | 'teamB', index: number) => {
     setDraw((prev) => {
       if (!prev) return prev
       const team = prev[teamKey]
@@ -99,7 +152,12 @@ export default function App() {
       )
       return { ...prev, [teamKey]: { ...team, players } }
     })
-  }
+  }, [])
+
+  const goToLobby = useCallback(() => {
+    setPhase('lobby')
+    setDraw(null)
+  }, [])
 
   return (
     <MotionConfig reducedMotion="user">
@@ -136,14 +194,6 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 14 }}
         >
-          <motion.p
-            className="mb-2 text-xs font-semibold uppercase tracking-[0.45em] text-teal-300/70"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            Smite 2 · Duelos 3v3
-          </motion.p>
           <h1 className="title-gradient title-shimmer font-display text-4xl font-black tracking-widest uppercase sm:text-5xl">
             Ruleta de Dioses
           </h1>
@@ -185,8 +235,8 @@ export default function App() {
                   {selectedPlayers.length}
                 </motion.span>
                 <p className="text-sm text-white/60">
-                  {selectedPlayers.length === PLAYERS.length
-                    ? 'Juegan todos (7) - 4 vs 3'
+                  {selectedPlayers.length === players.length
+                    ? `Juegan todos (${players.length}) - ${Math.ceil(players.length / 2)} vs ${Math.floor(players.length / 2)}`
                     : 'jugadores en partida'}
                 </p>
                 <div className="mx-1 h-5 w-px bg-white/15" />
@@ -205,13 +255,15 @@ export default function App() {
               </motion.div>
 
               <div className="grid w-full max-w-xl grid-cols-1 gap-2.5 sm:grid-cols-2">
-                {PLAYERS.map((p, i) => {
+                {players.map((p, i) => {
                   const active = selected.has(p.id)
+                  const isCustom = !DEFAULT_PLAYERS.some((d) => d.id === p.id)
                   return (
-                    <motion.button
+                    <motion.div
                       key={p.id}
+                      role="button"
                       onClick={() => togglePlayer(p.id)}
-                      className="card-glass flex cursor-pointer items-center gap-3 rounded-2xl border px-3 py-2.5 text-left transition"
+                      className="card-glass relative flex cursor-pointer items-center gap-3 rounded-2xl border px-3 py-2.5 text-left transition"
                       style={{
                         borderColor: active ? 'rgba(245,197,66,0.5)' : 'rgba(255,255,255,0.08)',
                         boxShadow: active
@@ -231,7 +283,7 @@ export default function App() {
                           {p.name}
                         </p>
                         <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/35">
-                          Jugador
+                          {isCustom ? 'Jugador extra' : 'Jugador'}
                         </p>
                       </div>
                       <span
@@ -240,16 +292,56 @@ export default function App() {
                         }`}
                       >
                         <motion.span
-                          className="absolute top-0.5 h-4 w-4 rounded-full bg-white"
-                          animate={{ left: active ? '1.375rem' : '0.125rem' }}
+                          className="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white"
+                          animate={{ x: active ? 20 : 0 }}
                           transition={{ type: 'spring', stiffness: 500, damping: 32 }}
                           style={active ? { boxShadow: '0 0 10px rgba(245,197,66,0.7)' } : undefined}
                         />
                       </span>
-                    </motion.button>
+                      {isCustom && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleRemovePlayer(p.id)
+                          }}
+                          title={`Quitar a ${p.name}`}
+                          className="absolute -right-2 -top-2 grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-white/15 bg-[#1b1e33] text-white/50 transition hover:border-rose-400/60 hover:text-rose-300"
+                        >
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                          </svg>
+                        </button>
+                      )}
+                    </motion.div>
                   )
                 })}
               </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...springGentle, delay: 0.35 }}
+                className="card-glass flex w-full max-w-xl items-center gap-2 rounded-2xl border border-white/10 p-2 pl-3"
+              >
+                <input
+                  value={newPlayerName}
+                  onChange={(e) => setNewPlayerName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleAddPlayer()
+                  }}
+                  maxLength={20}
+                  placeholder="Nombre del jugador..."
+                  className="min-w-0 flex-1 bg-transparent text-sm font-semibold text-white placeholder-white/30 outline-none"
+                />
+                <button
+                  onClick={handleAddPlayer}
+                  disabled={!newPlayerName.trim()}
+                  className="cursor-pointer rounded-full border border-amber-400/40 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-amber-300 transition hover:bg-amber-400/10 disabled:cursor-not-allowed disabled:border-white/10 disabled:text-white/30"
+                >
+                  Agregar
+                </button>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -343,17 +435,30 @@ export default function App() {
                 </motion.div>
                 <TeamPanel team={draw.teamB} index={1} onReroll={(i) => rerollGod('teamB', i)} tick={tick} />
               </div>
-              <motion.button
-                onClick={startDraw}
-                whileHover={pressable.whileHover}
-                whileTap={pressable.whileTap}
-                className="btn-sortear mt-1 cursor-pointer rounded-full px-8 py-3 font-display text-lg font-black uppercase tracking-widest text-[#3a2a05]"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.15, ...pressable.transition }}
-              >
-                Sortear de nuevo
-              </motion.button>
+              <div className="mt-1 flex flex-wrap items-center justify-center gap-4">
+                <motion.button
+                  onClick={startDraw}
+                  whileHover={pressable.whileHover}
+                  whileTap={pressable.whileTap}
+                  className="btn-sortear cursor-pointer rounded-full px-8 py-3 font-display text-lg font-black uppercase tracking-widest text-[#3a2a05]"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.15, ...pressable.transition }}
+                >
+                  Sortear de nuevo
+                </motion.button>
+                <motion.button
+                  onClick={goToLobby}
+                  whileHover={pressable.whileHover}
+                  whileTap={pressable.whileTap}
+                  className="cursor-pointer rounded-full border border-white/15 bg-white/5 px-8 py-3 font-display text-lg font-black uppercase tracking-widest text-white/80 transition hover:border-amber-400/50 hover:text-amber-300"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.25, ...pressable.transition }}
+                >
+                  Elegir jugadores
+                </motion.button>
+              </div>
             </motion.section>
           )}
         </AnimatePresence>

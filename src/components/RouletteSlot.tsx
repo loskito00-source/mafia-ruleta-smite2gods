@@ -1,10 +1,10 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { God, Player } from '../types'
 import { GODS, godImage } from '../lib'
 import { springGentle } from '../lib/motion'
 
-const REEL_LENGTH = 24
+const REEL_LENGTH = 18
 const REEL_EASE = [0.12, 0.8, 0.15, 1] as const
 
 function buildReel(finalGod: God): God[] {
@@ -22,7 +22,7 @@ function buildReel(finalGod: God): God[] {
   return reel
 }
 
-export default function RouletteSlot({
+export default memo(function RouletteSlot({
   player,
   finalGod,
   delay = 0,
@@ -110,6 +110,9 @@ export default function RouletteSlot({
                 key={`${g.id}-${i}`}
                 src={godImage(g)}
                 alt={g.name}
+                width={256}
+                height={256}
+                decoding="async"
                 className="h-24 w-24 object-cover sm:h-28 sm:w-28"
               />
             ))}
@@ -133,4 +136,4 @@ export default function RouletteSlot({
       </motion.p>
     </motion.div>
   )
-}
+})

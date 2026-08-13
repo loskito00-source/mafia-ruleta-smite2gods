@@ -5,7 +5,7 @@ export const GODS: God[] = (godsData as God[]).sort((a, b) =>
   a.name.localeCompare(b.name),
 )
 
-export const PLAYERS: Player[] = [
+export const DEFAULT_PLAYERS: Player[] = [
   { id: 'texas', name: 'Texas', tag: 'TX' },
   { id: 'kevzx', name: 'Kevzx', tag: 'KZ' },
   { id: 'losko', name: 'Losko', tag: 'LO' },

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { God, Player } from '../types'
 import { GODS, godImage, pantheonName, ROLE_LABELS } from '../lib'
 import { pressable, springGentle } from '../lib/motion'
 
-const REROLL_REEL_LENGTH = 12
+const REROLL_REEL_LENGTH = 9
 const REEL_EASE = [0.12, 0.8, 0.15, 1] as const
 
 function buildReel(finalGod: God): God[] {
@@ -40,7 +40,7 @@ function RefreshIcon({ size = 16 }: { size?: number }) {
   )
 }
 
-export default function GodCard({
+export default memo(function GodCard({
   player,
   god,
   ringClass,
@@ -121,6 +121,9 @@ export default function GodCard({
                   key={`${g.id}-${i}`}
                   src={godImage(g)}
                   alt={g.name}
+                  width={256}
+                  height={256}
+                  decoding="async"
                   className="h-24 w-24 object-cover sm:h-28 sm:w-28"
                 />
               ))}
@@ -165,4 +168,4 @@ export default function GodCard({
       </div>
     </motion.div>
   )
-}
+})

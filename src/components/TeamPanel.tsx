@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import type { Team } from '../types'
 import { springBouncy, springGentle } from '../lib/motion'
@@ -30,7 +31,7 @@ const ACCENT = {
   },
 }
 
-export default function TeamPanel({
+export default memo(function TeamPanel({
   team,
   index,
   onReroll,
@@ -99,4 +100,4 @@ export default function TeamPanel({
       </div>
     </motion.section>
   )
-}
+})
