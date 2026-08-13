@@ -1,9 +1,10 @@
+import { memo } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Player } from '../types'
 
 const HEX_CLIP = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
 
-export default function PlayerAvatar({
+function PlayerAvatar({
   player,
   size = 56,
   floatDelay = 0,
@@ -55,3 +56,5 @@ export default function PlayerAvatar({
     </motion.div>
   )
 }
+
+export default memo(PlayerAvatar)

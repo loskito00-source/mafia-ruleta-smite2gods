@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 export default function Background() {
   const embers = useMemo(
     () =>
-      Array.from({ length: 26 }, (_, i) => ({
+      Array.from({ length: 10 }, (_, i) => ({
         id: i,
         x: `${(i * 37 + 13) % 100}%`,
         size: 4 + ((i * 7) % 6),
@@ -14,19 +14,24 @@ export default function Background() {
     [],
   )
 
+  useEffect(() => {
+    const toggle = () => {
+      document.documentElement.classList.toggle('paused', document.hidden)
+    }
+    document.addEventListener('visibilitychange', toggle)
+    return () => document.removeEventListener('visibilitychange', toggle)
+  }, [])
+
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-aurora bg-veil">
+      <div className="aurora-blob aurora-purple h-[55vh] w-[45vw] left-[-10%] top-[-15%]" />
       <div
-        className="aurora-blob h-[55vh] w-[45vw] left-[-10%] top-[-15%] bg-purple-700/40"
-        style={{ animationDelay: '0s' }}
+        className="aurora-blob aurora-emerald h-[50vh] w-[40vw] right-[-12%] top-[10%]"
+        style={{ animationDelay: '-6s', animationDuration: '20s' }}
       />
       <div
-        className="aurora-blob h-[50vh] w-[40vw] right-[-12%] top-[10%] bg-emerald-800/40"
-        style={{ animationDelay: '-6s', animationDuration: '19s' }}
-      />
-      <div
-        className="aurora-blob h-[45vh] w-[45vw] left-[30%] bottom-[-20%] bg-pink-800/30"
-        style={{ animationDelay: '-11s', animationDuration: '22s' }}
+        className="aurora-blob aurora-pink h-[45vh] w-[45vw] left-[30%] bottom-[-20%]"
+        style={{ animationDelay: '-11s', animationDuration: '24s' }}
       />
       {embers.map((e) => (
         <span
