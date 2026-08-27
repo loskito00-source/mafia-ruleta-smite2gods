@@ -75,17 +75,3 @@ export function useCreateBuild() {
     },
   })
 }
-
-export function useDeleteBuild() {
-  const qc = useQueryClient()
-  return useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase.from('builds').delete().eq('id', id)
-      if (error) throw error
-      return id
-    },
-    onSuccess: (id) => {
-      qc.setQueryData<Build[]>(BUILDS_KEY, (old) => old?.filter((b) => b.id !== id))
-    },
-  })
-}
