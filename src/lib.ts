@@ -16,6 +16,7 @@ export const DEFAULT_PLAYERS: Player[] = [
 ]
 
 export const godImage = (god: God) => `/images/${god.id}.webp`
+export const godImageById = (id: string) => `/images/${id}.webp`
 
 export function shuffled<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -59,3 +60,22 @@ export const ROLE_LABELS: Record<string, string> = {
 }
 
 export const pantheonName = (p: string | null) => (p ? PANTHEONS[p] ?? p : '—')
+
+/** minúsculas + sin acentos, para búsquedas que ignoren tildes. */
+export const normalize = (s: string) =>
+  s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+
+const shortDate = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'short', year: 'numeric' })
+
+export function formatBuildDate(iso: string): string {
+  const date = new Date(iso)
+  const now = new Date()
+  if (date.toDateString() === now.toDateString()) return 'Hoy'
+  const yesterday = new Date(now)
+  yesterday.setDate(now.getDate() - 1)
+  if (date.toDateString() === yesterday.toDateString()) return 'Ayer'
+  return shortDate.format(date)
+}
