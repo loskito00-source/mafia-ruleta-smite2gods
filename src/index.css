@@ -23,6 +23,18 @@ body,
   font-family: var(--font-body);
   font-size: 16px;
   overflow-x: hidden;
+  color-scheme: dark;
+}
+
+/* iOS hace auto-zoom al enfocar un input con font-size menor a 16px,
+   lo que en la práctica se ve como si "todo colisionara" un instante.
+   Forzamos 16px en móvil sin tocar el tamaño visual en desktop. */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
 }
 
 /* ===== Fondo animado ===== */
@@ -161,7 +173,6 @@ body,
     0 0 0 1px rgba(245, 197, 66, 0.25),
     0 24px 60px -22px rgba(245, 197, 66, 0.35);
 }
-
 .god-ring {
   box-shadow:
     0 0 0 2px rgba(245, 197, 66, 0.55),

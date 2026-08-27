@@ -22,3 +22,11 @@ export interface Team {
 }
 
 export type Phase = 'lobby' | 'spinning' | 'result'
+
+export interface Build {
+  id: string
+  imageUrl: string
+  title: string | null
+  createdAt: string
+  godIds: string[]
+}
