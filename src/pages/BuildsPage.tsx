@@ -4,8 +4,6 @@ import { motion } from 'framer-motion'
 import type { Build, God } from '../types'
 import { GODS } from '../lib'
 import { useBuilds } from '../lib/builds'
-import { supabaseConfigured } from '../lib/supabase'
-import { cloudinaryConfigured } from '../lib/cloudinary'
 import BuildCard from '../components/builds/BuildCard'
 import GodSelect from '../components/builds/GodSelect'
 import AddBuildSheet from '../components/builds/AddBuildSheet'
@@ -46,8 +44,6 @@ export default function BuildsPage() {
     ? (active.godIds.map((id) => GODS_BY_ID.get(id)).filter(Boolean) as God[])
     : []
 
-  const configured = supabaseConfigured && cloudinaryConfigured
-
   return (
     <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-6 px-4 pb-10 pt-8 sm:pt-10">
       <Link
@@ -78,13 +74,6 @@ export default function BuildsPage() {
           Busca la build de un dios o mira todas las que hay guardadas.
         </p>
       </motion.div>
-
-      {!configured && (
-        <div className="card-glass rounded-2xl border border-amber-400/30 p-4 text-sm text-amber-200">
-          Falta configurar Supabase y/o Cloudinary. Revisa las variables en{' '}
-          <code className="rounded bg-black/30 px-1">.env.local</code>.
-        </div>
-      )}
 
       <div className="flex items-center gap-3">
         <GodSelect selected={godFilter} onSelect={setGodFilter} />

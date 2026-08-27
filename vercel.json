@@ -2,5 +2,8 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/db-ping", "destination": "/api/db-ping" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

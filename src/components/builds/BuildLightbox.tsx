@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { Build, God } from '../../types'
 import { formatBuildDate, godImageById } from '../../lib'
 import { fullUrl } from '../../lib/cloudinary'
-import { useDeleteBuild } from '../../lib/builds'
 import { sectionExit } from '../../lib/motion'
 
 export default function BuildLightbox({
@@ -17,18 +16,11 @@ export default function BuildLightbox({
   onClose: () => void
   onSelectGod: (godId: string) => void
 }) {
-  const del = useDeleteBuild()
   const [zoomed, setZoomed] = useState(false)
 
   useEffect(() => {
     setZoomed(false)
   }, [build])
-
-  const handleDelete = () => {
-    if (!build) return
-    if (!window.confirm('¿Borrar esta build? No se puede deshacer.')) return
-    del.mutate(build.id, { onSuccess: onClose })
-  }
 
   return (
     <AnimatePresence>
@@ -83,28 +75,19 @@ export default function BuildLightbox({
           </p>
 
           <div
-            className="card-glass mx-3 mb-3 flex flex-col gap-3 rounded-2xl border-white/10 p-3.5 sm:mx-6 sm:mb-6"
+            className="card-glass mx-3 mb-3 flex flex-wrap gap-2 rounded-2xl border-white/10 p-3.5 sm:mx-6 sm:mb-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-wrap gap-2">
-              {gods.map((g) => (
-                <button
-                  key={g.id}
-                  onClick={() => onSelectGod(g.id)}
-                  className="flex cursor-pointer items-center gap-1.5 rounded-full border border-white/10 bg-white/5 py-1 pl-1 pr-3 transition hover:border-amber-400/50"
-                >
-                  <img src={godImageById(g.id)} alt="" className="h-6 w-6 rounded-full object-cover" />
-                  <span className="text-xs font-bold text-white/85">{g.name}</span>
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={handleDelete}
-              disabled={del.isPending}
-              className="cursor-pointer self-start text-xs font-bold uppercase tracking-wide text-rose-300/80 transition hover:text-rose-300 disabled:opacity-40"
-            >
-              {del.isPending ? 'Borrando...' : 'Borrar build'}
-            </button>
+            {gods.map((g) => (
+              <button
+                key={g.id}
+                onClick={() => onSelectGod(g.id)}
+                className="flex cursor-pointer items-center gap-1.5 rounded-full border border-white/10 bg-white/5 py-1 pl-1 pr-3 transition hover:border-amber-400/50"
+              >
+                <img src={godImageById(g.id)} alt="" className="h-6 w-6 rounded-full object-cover" />
+                <span className="text-xs font-bold text-white/85">{g.name}</span>
+              </button>
+            ))}
           </div>
         </motion.div>
       )}
