@@ -189,6 +189,27 @@ body,
     0 0 26px -4px rgba(255, 59, 92, 0.6);
 }
 
+/* ===== Build nueva (llegada por realtime) =====
+   Solo box-shadow/opacity en un único elemento durante ~2.6s: barato aunque
+   no esté compositado, porque nunca hay más de un par de cards animando a
+   la vez (grupo de amigos, no un feed masivo). */
+@keyframes build-card-glow {
+  0% { box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.9), 0 0 34px -2px rgba(245, 197, 66, 0.85); }
+  100% { box-shadow: 0 0 0 2px rgba(245, 197, 66, 0), 0 0 34px -2px rgba(245, 197, 66, 0); }
+}
+.build-card-new {
+  animation: build-card-glow 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ===== Indicador "en vivo" ===== */
+@keyframes live-dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.8); }
+}
+.live-dot {
+  animation: live-dot-pulse 1.8s ease-in-out infinite;
+}
+
 /* ===== Scrollbar ===== */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #0b0e1c; }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useQueryClient } from '@tanstack/react-query'
 import { pressable } from '../lib/motion'
 
 const OPTIONS = [
@@ -32,7 +33,25 @@ const OPTIONS = [
   },
 ] as const
 
+/**
+ * Al entrar a /builds, el chunk (framer-motion + supabase-js) tiene que
+ * bajar y ejecutarse ANTES de que arranque el fetch a Supabase — eso es
+ * lo que se siente como "tarda en cargar". Adelantar ambos (chunk + query)
+ * en cuanto hay intención de ir a builds (hover/touch/foco) hace que casi
+ * siempre ya estén listos cuando la ruta realmente cambia.
+ */
+function usePreloadBuilds() {
+  const qc = useQueryClient()
+  return () => {
+    import('./BuildsPage')
+    import('../lib/builds').then(({ BUILDS_KEY, fetchBuilds }) =>
+      qc.prefetchQuery({ queryKey: BUILDS_KEY, queryFn: fetchBuilds, staleTime: 60_000 }),
+    )
+  }
+}
+
 export default function Home() {
+  const preloadBuilds = usePreloadBuilds()
   return (
     <main className="relative mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center gap-10 px-4 py-10">
       <motion.header
@@ -57,7 +76,17 @@ export default function Home() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: 'spring', stiffness: 220, damping: 20, delay: 0.15 + i * 0.1 }}
           >
-            <Link to={opt.to} className="block">
+            <Link
+              to={opt.to}
+              className="block"
+              {...(opt.to === '/builds'
+                ? {
+                    onMouseEnter: preloadBuilds,
+                    onTouchStart: preloadBuilds,
+                    onFocus: preloadBuilds,
+                  }
+                : {})}
+            >
               <motion.div
                 whileHover={{ ...pressable.whileHover, y: -4 }}
                 whileTap={pressable.whileTap}

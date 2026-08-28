@@ -35,3 +35,17 @@ create policy "public delete builds" on builds for delete using (true);
 create policy "public read build_gods" on build_gods for select using (true);
 create policy "public insert build_gods" on build_gods for insert with check (true);
 create policy "public delete build_gods" on build_gods for delete using (true);
+
+-- Realtime: publica los inserts/deletes de `builds` por websocket para que
+-- todos los que tengan la página de builds abierta vean aparecer las
+-- nuevas al instante (ver src/lib/builds.ts -> useBuildsRealtime).
+-- Idempotente: "alter publication ... add table" falla si ya está agregada.
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'builds'
+  ) then
+    alter publication supabase_realtime add table builds;
+  end if;
+end $$;

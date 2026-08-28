@@ -1,13 +1,25 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { Build, God } from '../types'
 import { GODS } from '../lib'
-import { useBuilds } from '../lib/builds'
+import { useBuilds, useBuildsRealtime } from '../lib/builds'
+import { useRecentIds } from '../useRecentIds'
 import BuildCard from '../components/builds/BuildCard'
 import GodSelect from '../components/builds/GodSelect'
 import AddBuildSheet from '../components/builds/AddBuildSheet'
 import BuildLightbox from '../components/builds/BuildLightbox'
+
+function LiveBadge({ status }: { status: 'connecting' | 'connected' | 'disconnected' }) {
+  const label = status === 'connected' ? 'En vivo' : status === 'connecting' ? 'Conectando' : 'Sin conexión'
+  const dotColor = status === 'connected' ? 'bg-emerald-400' : status === 'connecting' ? 'bg-amber-300' : 'bg-rose-400'
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white/50">
+      <span className={`live-dot h-1.5 w-1.5 rounded-full ${dotColor}`} />
+      {label}
+    </span>
+  )
+}
 
 const GODS_BY_ID = new Map(GODS.map((g) => [g.id, g]))
 
@@ -30,9 +42,13 @@ function AddBuildButton({ onClick }: { onClick: () => void }) {
 
 export default function BuildsPage() {
   const { data: builds, isLoading, isError, error } = useBuilds()
+  const liveStatus = useBuildsRealtime()
   const [godFilter, setGodFilter] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
   const [active, setActive] = useState<Build | null>(null)
+
+  const buildIds = useMemo(() => builds?.map((b) => b.id) ?? [], [builds])
+  const recentIds = useRecentIds(buildIds, !isLoading && !isError)
 
   const filtered = useMemo(() => {
     if (!builds) return []
@@ -73,6 +89,9 @@ export default function BuildsPage() {
         <p className="mx-auto mt-2 max-w-xl text-sm text-white/60">
           Busca la build de un dios o mira todas las que hay guardadas.
         </p>
+        <div className="mt-3 flex justify-center">
+          <LiveBadge status={liveStatus} />
+        </div>
       </motion.div>
 
       <div className="flex items-center gap-3">
@@ -113,20 +132,31 @@ export default function BuildsPage() {
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {filtered.map((b) => {
-                const primaryId = godFilter && b.godIds.includes(godFilter) ? godFilter : b.godIds[0]
-                const primaryGod = GODS_BY_ID.get(primaryId)
-                if (!primaryGod) return null
-                return (
-                  <BuildCard
-                    key={b.id}
-                    build={b}
-                    primaryGod={primaryGod}
-                    extraCount={b.godIds.length - 1}
-                    onOpen={() => setActive(b)}
-                  />
-                )
-              })}
+              <AnimatePresence initial={false} mode="popLayout">
+                {filtered.map((b) => {
+                  const primaryId = godFilter && b.godIds.includes(godFilter) ? godFilter : b.godIds[0]
+                  const primaryGod = GODS_BY_ID.get(primaryId)
+                  if (!primaryGod) return null
+                  return (
+                    <motion.div
+                      key={b.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.85, y: 16 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.85, transition: { duration: 0.18 } }}
+                      transition={{ type: 'spring', stiffness: 340, damping: 30 }}
+                    >
+                      <BuildCard
+                        build={b}
+                        primaryGod={primaryGod}
+                        extraCount={b.godIds.length - 1}
+                        isNew={recentIds.has(b.id)}
+                        onOpen={() => setActive(b)}
+                      />
+                    </motion.div>
+                  )
+                })}
+              </AnimatePresence>
             </div>
           )}
         </>
