@@ -218,7 +218,11 @@ export function useCreateBuild() {
     },
     onSuccess: (newBuild) => {
       markAsMine(newBuild.id)
-      qc.setQueryData<Build[]>(BUILDS_KEY, (old) => (old ? [newBuild, ...old] : [newBuild]))
+      qc.setQueryData<Build[]>(BUILDS_KEY, (old) => {
+        if (!old) return [newBuild]
+        if (old.some((b) => b.id === newBuild.id)) return old
+        return [newBuild, ...old]
+      })
     },
   })
 }
