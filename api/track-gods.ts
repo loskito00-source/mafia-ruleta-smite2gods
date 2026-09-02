@@ -1,7 +1,111 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { GODS, normalize } from '../src/lib'
+
+// Dioses de SMITE 2 (nombre -> id). Se mantienen EMBEBIDOS aquí a propósito:
+// las funciones serverless de /api/ de Vercel se compilan de forma aislada y
+// no resuelven bien imports cruzados con el bundle del cliente (../src/lib,
+// que trae a su vez types + gods.json). Eso hacía explotar el endpoint en
+// producción con un 500 sin mensaje, aunque en dev local (Vite) sí cargara.
+const GODS: { id: string; name: string }[] = [
+  { id: 'Achilles', name: 'Achilles' },
+  { id: 'Agni', name: 'Agni' },
+  { id: 'AhPuch', name: 'Ah Puch' },
+  { id: 'Aladdin', name: 'Aladdin' },
+  { id: 'Amaterasu', name: 'Amaterasu' },
+  { id: 'Anhur', name: 'Anhur' },
+  { id: 'Anubis', name: 'Anubis' },
+  { id: 'Aphrodite', name: 'Aphrodite' },
+  { id: 'Apollo', name: 'Apollo' },
+  { id: 'Ares', name: 'Ares' },
+  { id: 'Artemis', name: 'Artemis' },
+  { id: 'Artio', name: 'Artio' },
+  { id: 'Athena', name: 'Athena' },
+  { id: 'Atlas', name: 'Atlas' },
+  { id: 'Awilix', name: 'Awilix' },
+  { id: 'Bacchus', name: 'Bacchus' },
+  { id: 'BaronSamedi', name: 'Baron Samedi' },
+  { id: 'Bastet', name: 'Bastet' },
+  { id: 'Bellona', name: 'Bellona' },
+  { id: 'Cabrakan', name: 'Cabrakan' },
+  { id: 'Cerberus', name: 'Cerberus' },
+  { id: 'Cernunnos', name: 'Cernunnos' },
+  { id: 'Chaac', name: 'Chaac' },
+  { id: 'Charon', name: 'Charon' },
+  { id: 'Chiron', name: 'Chiron' },
+  { id: 'Chronos', name: 'Chronos' },
+  { id: 'CuChulainn', name: 'Cu Chulainn' },
+  { id: 'Cupid', name: 'Cupid' },
+  { id: 'DaJi', name: 'Da Ji' },
+  { id: 'Danzaburou', name: 'Danzaburou' },
+  { id: 'Discordia', name: 'Discordia' },
+  { id: 'Eset', name: 'Eset' },
+  { id: 'Fenrir', name: 'Fenrir' },
+  { id: 'Ganesha', name: 'Ganesha' },
+  { id: 'Geb', name: 'Geb' },
+  { id: 'Gilgamesh', name: 'Gilgamesh' },
+  { id: 'GuanYu', name: 'Guan Yu' },
+  { id: 'Hades', name: 'Hades' },
+  { id: 'Hecate', name: 'Hecate' },
+  { id: 'Hercules', name: 'Hercules' },
+  { id: 'Horus', name: 'Horus' },
+  { id: 'HouYi', name: 'Hou Yi' },
+  { id: 'Mulan', name: 'Hua Mulan' },
+  { id: 'HunBatz', name: 'Hun Batz' },
+  { id: 'Ishtar', name: 'Ishtar' },
+  { id: 'IxChel', name: 'Ix Chel' },
+  { id: 'Izanami', name: 'Izanami' },
+  { id: 'Janus', name: 'Janus' },
+  { id: 'JingWei', name: 'Jing Wei' },
+  { id: 'Jormungandr', name: 'Jormungandr' },
+  { id: 'Kali', name: 'Kali' },
+  { id: 'Khepri', name: 'Khepri' },
+  { id: 'Kukulkan', name: 'Kukulkan' },
+  { id: 'Loki', name: 'Loki' },
+  { id: 'Medusa', name: 'Medusa' },
+  { id: 'Mercury', name: 'Mercury' },
+  { id: 'Merlin', name: 'Merlin' },
+  { id: 'Mordred', name: 'Mordred' },
+  { id: 'MorganLeFay', name: 'Morgan Le Fay' },
+  { id: 'NeZha', name: 'Ne Zha' },
+  { id: 'Neith', name: 'Neith' },
+  { id: 'Nemesis', name: 'Nemesis' },
+  { id: 'NuWa', name: 'Nu Wa' },
+  { id: 'Nut', name: 'Nut' },
+  { id: 'Odin', name: 'Odin' },
+  { id: 'Osiris', name: 'Osiris' },
+  { id: 'Pele', name: 'Pele' },
+  { id: 'Poseidon', name: 'Poseidon' },
+  { id: 'Bari', name: 'Princess Bari' },
+  { id: 'Ra', name: 'Ra' },
+  { id: 'Rama', name: 'Rama' },
+  { id: 'Ratatoskr', name: 'Ratatoskr' },
+  { id: 'Scylla', name: 'Scylla' },
+  { id: 'Sobek', name: 'Sobek' },
+  { id: 'Sol', name: 'Sol' },
+  { id: 'SunWukong', name: 'Sun Wukong' },
+  { id: 'Susano', name: 'Susano' },
+  { id: 'Sylvanus', name: 'Sylvanus' },
+  { id: 'Thanatos', name: 'Thanatos' },
+  { id: 'TheMorrigan', name: 'The Morrigan' },
+  { id: 'Thor', name: 'Thor' },
+  { id: 'Tsukuyomi', name: 'Tsukuyomi' },
+  { id: 'Ullr', name: 'Ullr' },
+  { id: 'Vulcan', name: 'Vulcan' },
+  { id: 'Xbalanque', name: 'Xbalanque' },
+  { id: 'XingTian', name: 'Xing Tian' },
+  { id: 'Yemoja', name: 'Yemoja' },
+  { id: 'Ymir', name: 'Ymir' },
+  { id: 'Zeus', name: 'Zeus' },
+]
 
 const GROQ_MODEL = process.env.GROQ_MODEL || 'qwen/qwen3.8-27b'
+
+/** minúsculas + sin acentos, para emparejar nombres ignorando tildes. */
+function normalize(s: string): string {
+  return s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
 
 /**
  * Reconoce dioses de SMITE 2 en una foto usando un modelo de visión gratuito
@@ -92,7 +196,7 @@ Responde ÚNICAMENTE con un JSON de la forma {"gods": ["Nombre1", "Nombre2"]}, s
       return
     }
 
-    const data = await groqRes.json()
+    const data: any = await groqRes.json()
     const content: string = data?.choices?.[0]?.message?.content ?? '{}'
 
     let parsedNames: string[] = []
