@@ -14,7 +14,7 @@ export interface UploadResult {
  * unos cientos de KB sin verse peor en pantalla, y la subida se siente
  * instantánea en vez de colgarse con el archivo original.
  */
-async function compressImage(file: File, maxDim = 1600, quality = 0.82): Promise<Blob> {
+export async function compressImage(file: File, maxDim = 1600, quality = 0.82): Promise<Blob> {
   if (!('createImageBitmap' in window)) return file
   const bitmap = await createImageBitmap(file)
   const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height))

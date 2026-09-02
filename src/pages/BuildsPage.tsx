@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Build, God } from '../types'
 import { GODS } from '../lib'
-import { useBuilds, useBuildsRealtime } from '../lib/builds'
+import { useBuilds, useBuildsRealtime, useToggleReaction } from '../lib/builds'
 import { useRecentIds } from '../useRecentIds'
+import { getDeviceId } from '../lib/deviceId'
 import BuildCard from '../components/builds/BuildCard'
 import GodSelect from '../components/builds/GodSelect'
 import AddBuildSheet from '../components/builds/AddBuildSheet'
 import BuildLightbox from '../components/builds/BuildLightbox'
+import EmojiPickerSheet from '../components/builds/EmojiPickerSheet'
 
 function LiveBadge({ status }: { status: 'connecting' | 'connected' | 'disconnected' }) {
   const label = status === 'connected' ? 'En vivo' : status === 'connecting' ? 'Conectando' : 'Sin conexión'
@@ -45,7 +47,15 @@ export default function BuildsPage() {
   const liveStatus = useBuildsRealtime()
   const [godFilter, setGodFilter] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
-  const [active, setActive] = useState<Build | null>(null)
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [emojiPickerFor, setEmojiPickerFor] = useState<{ buildId: string; godId: string } | null>(null)
+  const deviceId = useMemo(() => getDeviceId(), [])
+  const toggleReaction = useToggleReaction()
+
+  // Derivado del cache, no un snapshot congelado: así si se edita el título/
+  // dioses o alguien reacciona mientras el lightbox está abierto, se ve al
+  // instante sin tener que cerrarlo y volver a abrirlo.
+  const active = useMemo(() => builds?.find((b) => b.id === activeId) ?? null, [builds, activeId])
 
   const buildIds = useMemo(() => builds?.map((b) => b.id) ?? [], [builds])
   const recentIds = useRecentIds(buildIds, !isLoading && !isError)
@@ -55,6 +65,24 @@ export default function BuildsPage() {
     if (!godFilter) return builds
     return builds.filter((b) => b.godIds.includes(godFilter))
   }, [builds, godFilter])
+
+  /**
+   * Una build con varios dioses no se resume en una sola tarjeta: se muestra
+   * una tarjeta por cada dios (o solo la del dios filtrado, si hay filtro),
+   * todas apuntando a la misma build/lightbox.
+   */
+  const cards = useMemo(() => {
+    const list: { key: string; build: Build; god: God; totalGods: number }[] = []
+    for (const b of filtered) {
+      const godsToShow = godFilter ? [godFilter] : b.godIds
+      for (const godId of godsToShow) {
+        const god = GODS_BY_ID.get(godId)
+        if (!god) continue
+        list.push({ key: `${b.id}-${godId}`, build: b, god, totalGods: b.godIds.length })
+      }
+    }
+    return list
+  }, [filtered, godFilter])
 
   const activeGods: God[] = active
     ? (active.godIds.map((id) => GODS_BY_ID.get(id)).filter(Boolean) as God[])
@@ -118,7 +146,7 @@ export default function BuildsPage() {
 
       {!isLoading && !isError && (
         <>
-          {filtered.length === 0 ? (
+          {cards.length === 0 ? (
             <div className="flex flex-col items-center gap-2 py-16 text-center">
               <p className="text-white/50">
                 {godFilter ? 'Este dios todavía no tiene builds.' : 'Todavía no hay builds guardadas.'}
@@ -133,29 +161,28 @@ export default function BuildsPage() {
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               <AnimatePresence initial={false} mode="popLayout">
-                {filtered.map((b) => {
-                  const primaryId = godFilter && b.godIds.includes(godFilter) ? godFilter : b.godIds[0]
-                  const primaryGod = GODS_BY_ID.get(primaryId)
-                  if (!primaryGod) return null
-                  return (
-                    <motion.div
-                      key={b.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.85, y: 16 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.85, transition: { duration: 0.18 } }}
-                      transition={{ type: 'spring', stiffness: 340, damping: 30 }}
-                    >
-                      <BuildCard
-                        build={b}
-                        primaryGod={primaryGod}
-                        extraCount={b.godIds.length - 1}
-                        isNew={recentIds.has(b.id)}
-                        onOpen={() => setActive(b)}
-                      />
-                    </motion.div>
-                  )
-                })}
+                {cards.map(({ key, build, god, totalGods }) => (
+                  <motion.div
+                    key={key}
+                    layout
+                    initial={{ opacity: 0, scale: 0.85, y: 16 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.85, transition: { duration: 0.18 } }}
+                    transition={{ type: 'spring', stiffness: 340, damping: 30 }}
+                  >
+                    <BuildCard
+                      build={build}
+                      god={god}
+                      totalGods={totalGods}
+                      isNew={recentIds.has(build.id)}
+                      onOpen={() => setActiveId(build.id)}
+                      onReact={(emoji, reacted) =>
+                        toggleReaction.mutate({ buildId: build.id, godId: god.id, emoji, voterId: deviceId, reacted })
+                      }
+                      onOpenPicker={() => setEmojiPickerFor({ buildId: build.id, godId: god.id })}
+                    />
+                  </motion.div>
+                ))}
               </AnimatePresence>
             </div>
           )}
@@ -166,10 +193,25 @@ export default function BuildsPage() {
       <BuildLightbox
         build={active}
         gods={activeGods}
-        onClose={() => setActive(null)}
+        onClose={() => setActiveId(null)}
         onSelectGod={(id) => {
           setGodFilter(id)
-          setActive(null)
+          setActiveId(null)
+        }}
+      />
+      <EmojiPickerSheet
+        open={emojiPickerFor !== null}
+        onClose={() => setEmojiPickerFor(null)}
+        onPick={(emoji) => {
+          if (emojiPickerFor) {
+            const target = builds?.find((b) => b.id === emojiPickerFor.buildId)
+            const reacted =
+              target?.reactions.some(
+                (r) => r.godId === emojiPickerFor.godId && r.emoji === emoji && r.voterId === deviceId,
+              ) ?? false
+            toggleReaction.mutate({ ...emojiPickerFor, emoji, voterId: deviceId, reacted })
+          }
+          setEmojiPickerFor(null)
         }}
       />
     </main>

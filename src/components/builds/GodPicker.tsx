@@ -2,6 +2,8 @@ import { memo, useMemo, useState } from 'react'
 import type { God } from '../../types'
 import { GODS, godImage, normalize } from '../../lib'
 
+const GODS_BY_ID = new Map(GODS.map((g) => [g.id, g]))
+
 interface GodPickerProps {
   selected: string[]
   onToggle: (godId: string) => void
@@ -23,8 +25,43 @@ export default memo(function GodPicker({
 
   const selectedSet = useMemo(() => new Set(selected), [selected])
 
+  const selectedGods = useMemo(
+    () => selected.map((id) => GODS_BY_ID.get(id)).filter(Boolean) as God[],
+    [selected],
+  )
+
   return (
     <div className="flex flex-col gap-2.5">
+      {/* Fijo arriba (no dentro de la grilla con scroll) para ver de un
+          vistazo lo ya seleccionado, sea a mano o por "Reconocer dioses". */}
+      {selectedGods.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 rounded-xl border border-amber-400/25 bg-amber-400/[0.06] p-2">
+          {selectedGods.map((god) => (
+            <button
+              key={god.id}
+              type="button"
+              onClick={() => onToggle(god.id)}
+              className="group flex cursor-pointer items-center gap-1.5 rounded-full border border-amber-400/40 bg-[#0b0e1c] py-1 pl-1 pr-2 text-xs font-bold text-white/85 transition hover:border-rose-400/50"
+            >
+              <img src={godImage(god)} alt="" className="h-5 w-5 rounded-full object-cover" />
+              {god.name}
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                className="text-white/40 transition group-hover:text-rose-300"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          ))}
+        </div>
+      )}
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
@@ -46,12 +83,6 @@ export default memo(function GodPicker({
           </p>
         )}
       </div>
-      {selected.length > 0 && (
-        <p className="text-xs font-semibold text-amber-300/80">
-          {selected.length} dios{selected.length === 1 ? '' : 'es'} seleccionado
-          {selected.length === 1 ? '' : 's'}
-        </p>
-      )}
     </div>
   )
 })

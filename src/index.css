@@ -253,3 +253,23 @@ input,
 textarea {
   cursor: text;
 }
+
+/* ===== Tipografía heroica (solo el título de Inicio) ===== */
+.font-hero {
+  font-family: "Cinzel", ui-serif, Georgia, "Times New Roman", serif;
+}
+
+/* ===== Cinta de dioses (decorativa, Inicio) =====
+   Dos copias del roster van seguidas y el track recorre -50%: al llegar al
+   final, la segunda copia ocupa exactamente donde empezó la primera, así el
+   loop no se nota. Sin mask-image: en varios GPUs de celular fuerza
+   compositing por software en un elemento que ya se está animando, y se
+   siente como lag. */
+@keyframes roster-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.roster-track {
+  animation: roster-scroll 50s linear infinite;
+  will-change: transform;
+}

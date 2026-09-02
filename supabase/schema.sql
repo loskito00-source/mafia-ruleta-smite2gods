@@ -49,3 +49,68 @@ begin
     alter publication supabase_realtime add table builds;
   end if;
 end $$;
+
+-- ---------------------------------------------------------------------
+-- Actualización: reacciones rápidas + dueño de build (para poder borrar y
+-- editar solo la propia, sin login). Ejecutar también en Supabase.
+-- ---------------------------------------------------------------------
+
+-- Reacciones rápidas (emoji), por CARD (build + dios), no por build entera:
+-- si una foto tiene varios dioses (varias cards en la grilla), reaccionar en
+-- una no debe aparecer en las otras. Sin cuenta: el "voter_id" es un id
+-- anónimo por dispositivo (ver src/lib/deviceId.ts), guardado en localStorage.
+create table if not exists build_reactions (
+  build_id uuid not null references builds(id) on delete cascade,
+  god_id text not null,
+  voter_id text not null,
+  emoji text not null,
+  created_at timestamptz not null default now(),
+  primary key (build_id, god_id, voter_id, emoji)
+);
+
+create index if not exists build_reactions_build_god_idx on build_reactions (build_id, god_id);
+
+alter table build_reactions enable row level security;
+
+create policy "public read build_reactions" on build_reactions for select using (true);
+create policy "public insert build_reactions" on build_reactions for insert with check (true);
+create policy "public delete build_reactions" on build_reactions for delete using (true);
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'build_reactions'
+  ) then
+    alter publication supabase_realtime add table build_reactions;
+  end if;
+end $$;
+
+-- Dueño de cada build, para poder borrar/editar solo la propia sin login:
+-- guarda el id anónimo del dispositivo que la subió (ver src/lib/deviceId.ts).
+-- Es una tabla aparte (y no una columna en `builds`) a propósito: así nunca
+-- se expone por select público ni por el canal de realtime -- solo la puede
+-- leer el backend con la service_role key (api/delete-build.ts,
+-- api/update-build.ts), que compara el owner_token guardado acá contra el
+-- que manda el navegador.
+create table if not exists build_owners (
+  build_id uuid primary key references builds(id) on delete cascade,
+  owner_token text not null,
+  created_at timestamptz not null default now()
+);
+
+alter table build_owners enable row level security;
+
+-- Solo insert público (al crear la build). Nada de select/update/delete
+-- público a propósito: sin eso, cualquiera podría leer el owner_token de
+-- cualquier build y hacerse pasar por su dueño.
+create policy "public insert build_owners" on build_owners for insert with check (true);
+
+-- Antes cualquiera con el link podía borrar la build de cualquier otro.
+-- Ahora solo se borra vía api/delete-build.ts, que sí valida el dueño.
+drop policy if exists "public delete builds" on builds;
+
+-- Mismo criterio para los tags de dioses de una build: antes cualquiera
+-- podía destaggear los dioses de la build de otro. Editar pasa por
+-- api/update-build.ts.
+drop policy if exists "public delete build_gods" on build_gods;
