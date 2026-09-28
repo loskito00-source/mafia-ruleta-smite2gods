@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useCallback, useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Build, God } from '../types'
 import { GODS } from '../lib'
@@ -47,7 +47,23 @@ export default function BuildsPage() {
   const liveStatus = useBuildsRealtime()
   const [godFilter, setGodFilter] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
-  const [activeId, setActiveId] = useState<string | null>(null)
+  // La build abierta vive en la URL (?b=<id>) para que el link se pueda
+  // compartir y abrir directo en esa build.
+  const [searchParams, setSearchParams] = useSearchParams()
+  const activeId = searchParams.get('b')
+  const setActiveId = useCallback(
+    (id: string | null) =>
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev)
+          if (id) next.set('b', id)
+          else next.delete('b')
+          return next
+        },
+        { replace: true },
+      ),
+    [setSearchParams],
+  )
   const [emojiPickerFor, setEmojiPickerFor] = useState<{ buildId: string; godId: string } | null>(null)
   const deviceId = useMemo(() => getDeviceId(), [])
   const toggleReaction = useToggleReaction()

@@ -27,6 +27,7 @@ export default function BuildLightbox({
   const [editGodIds, setEditGodIds] = useState<string[]>([])
   const [editFile, setEditFile] = useState<File | null>(null)
   const [editProgress, setEditProgress] = useState<number | null>(null)
+  const [copied, setCopied] = useState(false)
 
   const updateBuild = useUpdateBuild()
   const deleteBuild = useDeleteBuild()
@@ -43,6 +44,7 @@ export default function BuildLightbox({
     setEditGodIds(build?.godIds ?? [])
     setEditFile(null)
     setEditProgress(null)
+    setCopied(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [build?.id])
 
@@ -52,6 +54,32 @@ export default function BuildLightbox({
       { buildId: build.id, title: editTitle, godIds: editGodIds, file: editFile, onProgress: setEditProgress },
       { onSuccess: () => setEditing(false) },
     )
+  }
+
+  /**
+   * En móvil usa el menú nativo de compartir; en escritorio (o si el
+   * navegador no lo soporta) copia el link al portapapeles.
+   */
+  const share = async () => {
+    if (!build) return
+    const url = `${window.location.origin}/builds?b=${encodeURIComponent(build.id)}`
+    const godNames = gods.map((g) => g.name).join(', ')
+    const title = build.title || `Build de ${godNames || 'Smite 2'}`
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, text: title, url })
+        return
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') return
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      window.prompt('Copia el link de la build:', url)
+    }
   }
 
   const confirmDelete = () => {
@@ -76,15 +104,45 @@ export default function BuildLightbox({
               </p>
               <p className="text-xs font-semibold text-white/40">{formatBuildDate(build.createdAt)}</p>
             </div>
-            <button
-              onClick={onClose}
-              className="cursor-pointer rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-            </button>
+            <div className="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  share()
+                }}
+                title="Compartir build"
+                className={`flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-black uppercase tracking-wide transition ${
+                  copied
+                    ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300'
+                    : 'border-white/15 text-white/70 hover:border-amber-400/50 hover:text-amber-300'
+                }`}
+              >
+                {copied ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="18" cy="5" r="3" />
+                    <circle cx="6" cy="12" r="3" />
+                    <circle cx="18" cy="19" r="3" />
+                    <path d="m8.59 13.51 6.83 3.98" />
+                    <path d="m15.41 6.51-6.82 3.98" />
+                  </svg>
+                )}
+                {copied ? 'Link copiado' : 'Compartir'}
+              </button>
+              <button
+                onClick={onClose}
+                className="cursor-pointer rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {editing ? (
